@@ -37,9 +37,22 @@
     //Create MPMoviewPlayerController
     [self createMoviePlayer];
     //AddMPMoviewPlayer to the interface
-    [self.moviePlayer.view setAutoresizesSubviews:NO];
+    [self.moviePlayer.view setTranslatesAutoresizingMaskIntoConstraints:NO];
 
     [self.bgViewForMPView addSubview:self.moviePlayer.view];
+    id views = @{ @"player": self.moviePlayer.view };
+
+    [self.moviePlayer setScalingMode:MPMovieScalingModeAspectFill];
+    [self.bgViewForMPView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[player]|"
+                                                                       options:0
+                                                                       metrics:nil
+                                                                         views:views]];
+    
+    [self.bgViewForMPView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[player]|"
+                                                                       options:0
+                                                                       metrics:nil
+                                                                         views:views]];
+
 
     
 }
